@@ -16,7 +16,7 @@ ARCHIVO_DATOS = "vistos_ldlc.json"
 WEBHOOK_URL = os.environ.get('DISCORD_WEBHOOK')
 
 # Marcas que NO queremos (Añade más si salen otras)
-MARCAS_IGNORAR = ["asus", "msi", "gigabyte", "zotac", "pny", "gainward", "palit", "inno3d", "kfa2"]
+MARCAS_IGNORAR = ["asus", "msi", "zotac", "pny", "gainward", "palit", "inno3d", "kfa2"]
 
 def cargar_vistos():
     if not os.path.exists(ARCHIVO_DATOS): return []
