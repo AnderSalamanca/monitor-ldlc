@@ -11,7 +11,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 # --- CONFIGURACIÓN ---
-URL_BUSQUEDA = "https://www.ldlc.com/es-es/informatica/piezas-de-informatica/tarjeta-grafica/c4684/+fv121-126519,126520,126567+fv1766-16762.html"
+URL_BUSQUEDA = "https://www.ldlc.com/es-es/informatica/piezas-de-informatica/tarjeta-grafica/c4684/+fv121-126519,126520,126567+fv1766-16762.html?sort=1"
 ARCHIVO_DATOS = "vistos_ldlc.json"
 WEBHOOK_URL = os.environ.get('DISCORD_WEBHOOK')
 
