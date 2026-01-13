@@ -26,7 +26,7 @@ jobs:
       - name: Ejecutar Monitor
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        run: python main.py
+        run: python ldlc_monitor.py
 
       - name: Guardar base de datos
         uses: stefanzweifel/git-auto-commit-action@v4
