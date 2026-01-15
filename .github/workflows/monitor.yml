@@ -1,15 +1,15 @@
-name: Monitor LDLC Fast
+name: Monitor GPU Doble (LDLC + API)
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
-  workflow_dispatch:
+    - cron: '*/5 * * * *' # Cada 5 minutos
+  workflow_dispatch:      # Botón manual
 
 jobs:
   check_stock:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write # IMPORTANTE para guardar los JSON
 
     steps:
       - name: Checkout del código
@@ -23,13 +23,23 @@ jobs:
       - name: Instalar librerías
         run: pip install -r requirements.txt
 
-      - name: Ejecutar Monitor
+      # 1. Ejecutar Monitor LDLC (Web Scraping)
+      - name: Check LDLC Web
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        run: python ldlc_monitor.py
+        run: python main.py
+        continue-on-error: true # Si este falla, que siga con el siguiente
 
-      - name: Guardar base de datos
+      # 2. Ejecutar Monitor NVIDIA (API)
+      - name: Check Nvidia API
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: python nvidia_api.py
+        continue-on-error: true
+
+      # 3. Guardar cambios (Guardará vistos.json Y estado_nvidia.json)
+      - name: Guardar bases de datos
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "Update stock db [skip ci]"
-          file_pattern: "vistos.json"
+          commit_message: "Update stock DBs [skip ci]"
+          file_pattern: "*.json"
